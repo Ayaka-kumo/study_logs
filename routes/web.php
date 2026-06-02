@@ -8,3 +8,4 @@ Route::get('/study-logs/create', [StudyLogController::class, 'create'])->name('s
 Route::post('/study-logs', [StudyLogController::class, 'store'])->name('study-logs.store');
 Route::get('/study-logs/{studyLog}/edit', [StudyLogController::class, 'edit'])->name('study-logs.edit');
 Route::put('/study-logs/{studyLog}', [StudyLogController::class, 'update'])->name('study-logs.update');
+Route::delete('/study-logs/{studyLog}', [StudyLogController::class, 'destroy'])->name('study-logs.destroy');

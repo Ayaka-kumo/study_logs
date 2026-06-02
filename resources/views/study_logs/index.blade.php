@@ -21,6 +21,11 @@
                 <p class="meta">{{ $studyLog->created_at->format('Y/m/d H:i') }}</p>
                 <div class="actions">
                     <a class="button secondary" href="{{ route('study-logs.edit', $studyLog) }}">編集</a>
+                    <form action="{{ route('study-logs.destroy', $studyLog) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button class="button secondary" type="submit">削除</button>
+                    </form>
                 </div>
             </article>
         @empty

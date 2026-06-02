@@ -44,6 +44,13 @@ class StudyLogController extends Controller
         return redirect()->route('study-logs.index')->with('status', '学習記録を更新しました。');
     }
 
+    public function destroy(StudyLog $studyLog)
+    {
+        $studyLog->delete();
+
+        return redirect()->route('study-logs.index')->with('status', '学習記録を削除しました。');
+    }
+
     private function validatedStudyLog(Request $request): array
     {
         return $request->validate([

@@ -109,6 +109,18 @@ class StudyLogTest extends TestCase
         ]);
     }
 
+    public function test_study_log_can_be_deleted(): void
+    {
+        $studyLog = $this->createStudyLog();
+
+        $response = $this->delete(route('study-logs.destroy', $studyLog));
+
+        $response->assertRedirect(route('study-logs.index'));
+        $this->assertDatabaseMissing('study_logs', [
+            'id' => $studyLog->id,
+        ]);
+    }
+
     private function createStudyLog(): StudyLog
     {
         $user = User::factory()->create();
