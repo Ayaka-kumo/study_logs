@@ -23,19 +23,36 @@ class StudyLogController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'study_time' => ['required', 'integer', 'min:0'],
-            'study_content' => ['required', 'string', 'max:10000'],
-            'understood_level' => ['required', 'integer', 'in:1,2,3'],
-            'mood' => ['required', 'integer', 'in:1,2,3'],
-        ]);
+        $validated = $this->validatedStudyLog($request);
 
         $validated['user_id'] = auth()->id() ?? $this->developmentUser()->id;
 
         StudyLog::create($validated);
 
         return redirect()->route('study-logs.index')->with('status', '学習記録を登録しました。');
+    }
+
+    public function edit(StudyLog $studyLog): View
+    {
+        return view('study_logs.edit', compact('studyLog'));
+    }
+
+    public function update(Request $request, StudyLog $studyLog)
+    {
+        $studyLog->update($this->validatedStudyLog($request));
+
+        return redirect()->route('study-logs.index')->with('status', '学習記録を更新しました。');
+    }
+
+    private function validatedStudyLog(Request $request): array
+    {
+        return $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'study_time' => ['required', 'integer', 'min:0'],
+            'study_content' => ['required', 'string', 'max:10000'],
+            'understood_level' => ['required', 'integer', 'in:1,2,3'],
+            'mood' => ['required', 'integer', 'in:1,2,3'],
+        ]);
     }
 
     private function developmentUser(): User

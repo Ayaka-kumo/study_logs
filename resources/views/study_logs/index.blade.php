@@ -19,6 +19,9 @@
                 </p>
                 <p style="white-space: pre-wrap;">{{ $studyLog->study_content }}</p>
                 <p class="meta">{{ $studyLog->created_at->format('Y/m/d H:i') }}</p>
+                <div class="actions">
+                    <a class="button secondary" href="{{ route('study-logs.edit', $studyLog) }}">編集</a>
+                </div>
             </article>
         @empty
             <div class="panel empty">学習記録はまだありません。</div>
