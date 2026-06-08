@@ -21,6 +21,11 @@ class StudyLogController extends Controller
         return view('study_logs.create');
     }
 
+    public function show(StudyLog $studyLog): View
+    {
+        return view('study_logs.show', compact('studyLog'));
+    }
+
     public function store(Request $request)
     {
         $validated = $this->validatedStudyLog($request);

@@ -2,7 +2,7 @@
     <div class="header">
         <h1 class="title">学習記録一覧</h1>
         <div class="actions">
-            <a class="button" href="{{ route('study-logs.create') }}">新規作成</a>
+            <a class="button" href="{{ route('study-logs.create') }}">学習記録を追加</a>
             <form action="{{ route('logout') }}" method="post">
                 @csrf
                 <button class="button secondary" type="submit">ログアウト</button>
@@ -26,6 +26,7 @@
                 <p style="white-space: pre-wrap;">{{ $studyLog->study_content }}</p>
                 <p class="meta">{{ $studyLog->created_at->format('Y/m/d H:i') }}</p>
                 <div class="actions">
+                    <a class="button secondary" href="{{ route('study-logs.show', $studyLog) }}">詳細</a>
                     <a class="button secondary" href="{{ route('study-logs.edit', $studyLog) }}">編集</a>
                     <form action="{{ route('study-logs.destroy', $studyLog) }}" method="post">
                         @csrf

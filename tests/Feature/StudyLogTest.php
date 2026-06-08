@@ -61,6 +61,31 @@ class StudyLogTest extends TestCase
         $this->assertDatabaseCount('study_logs', 0);
     }
 
+    public function test_index_has_detail_link(): void
+    {
+        $this->actingAsUser();
+        $studyLog = $this->createStudyLog();
+
+        $response = $this->get(route('study-logs.index'));
+
+        $response->assertOk();
+        $response->assertSee('詳細');
+        $response->assertSee(route('study-logs.show', $studyLog), false);
+    }
+
+    public function test_detail_page_is_displayed(): void
+    {
+        $this->actingAsUser();
+        $studyLog = $this->createStudyLog();
+
+        $response = $this->get(route('study-logs.show', $studyLog));
+
+        $response->assertOk();
+        $response->assertSee('学習記録詳細');
+        $response->assertSee('Laravel基礎');
+        $response->assertSee('ルーティングとコントローラーを確認した。');
+    }
+
     public function test_edit_page_is_displayed(): void
     {
         $this->actingAsUser();
